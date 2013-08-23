@@ -1,0 +1,25 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+
+<script>
+    function getWord() {
+    	$.ajax({
+	        url: '/random',
+	        dataType: "json",
+	        timeout: 5000,
+	        success: function(data) {
+	        	console.log(data);
+	            $("#test").append(data.word + '<br>');
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert('error ' + textStatus + " " + errorThrown);
+	        }
+	    });
+    }
+</script>
+
+<html>
+	hello world
+	<div id='test'>
+	</div>
+	<button type='button' onclick=getWord()>Get Word</button>
+</html>
