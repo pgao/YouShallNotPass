@@ -3,29 +3,74 @@
 
 <script>
     var pageTitle = 'YOU SHALL NOT PASSWORD';
+    var caret = '<span class="caret">&nbsp;</span>';
 
     $(document).ready(function() {
+        setInterval('cursorAnimation()', 600);
+
         $('#title').teletype({
             animDelay: 100,
-            text: pageTitle
+            text: pageTitle,
+            callback: function() {
+                getPassword();
+            }
         });
-
-        window.setTimeout(getPassword, 2000, 3);
     });
+
+    function getDimensions(text, fontSize) {
+        var test = $('#widthTest');
+        test.css('font-size', fontSize);
+        test.html(text);
+        var height = (test.height() + 1) + "px";
+        var width = (test.width() + 1) + "px";
+        return [height, width]
+    }
 
     $.fn.teletype = function(opts){
         var $this = this,
             defaults = {
-                animDelay: 50
+                animDelay: 50,
+                caret: false,
+                callback: null
             },
             settings = $.extend(defaults, opts);
 
+        var dimensions = getDimensions(settings.text + caret, $this.css('font-size'));
+
+        $this.height(dimensions[0]);
+        $this.width(dimensions[1]);
+
+        var current = '';
         $.each(settings.text.split(''), function(i, letter){
             setTimeout(function(){
-                $this.html($this.html() + letter);
+                current += letter;
+                if(!settings.caret && i==settings.text.length-1) {
+                    $this.html(settings.text);
+                }
+                else {
+                    $this.html(current + caret);
+                }
+                if(i==settings.text.length-1 && settings.callback) {
+                    $this.html(current + caret);
+                    
+                    window.setTimeout(function() {
+                        $this.html(current);
+                        settings.callback();
+                    }, 2000);
+                }
             }, settings.animDelay * i);
         });
     };
+
+    function cursorAnimation() {
+        var speed = 500;
+        $('.caret').animate({
+            opacity: 0
+        }, speed, 'swing').animate({
+            opacity: 1
+        }, speed, 'swing');
+    }
+
 
     function getWords(words, num_left, callback) {
         $.ajax({
@@ -33,7 +78,6 @@
             dataType: "json",
             timeout: 5000,
             success: function(data) {
-                console.log('word received:' + data.word);
                 if (num_left>0) {
                     words.push(data.word);
                     getWords(words, num_left-1, callback);
@@ -48,33 +92,19 @@
         });
     }
 
-    function getPassword(num_words) {
+    function getPassword() {
+        var num_words = 3;
         getWords([], num_words, function(password) {
-            console.log('words:' + password);
             var temp = ''
             for(var i=0;i<password.length;i++) {
                 temp += password[i] + ' ';
             }
-
-            var generated = document.getElementById("generated");
-            generated.innerHTML = '';
-
-            var test = document.getElementById("widthTest");
-
-            var style = window.getComputedStyle(generated, null).getPropertyValue('font-size');
-            var fontSize = parseFloat(style);
-
-            test.style.fontSize = fontSize;
-            test.innerHTML = temp;
-            var height = (test.clientHeight + 10) + "px";
-            var width = (test.clientWidth + 10) + "px";
-
-            generated.style.width = width;
-            generated.style.height = height;
+            temp = temp.trim();
 
             $('#generated').teletype({
                 animDelay: 10,
-                text: temp
+                text: temp,
+                caret: true
             });
         });
     }
@@ -86,6 +116,7 @@
     <div id='title'></div>
     <div id='generated'><br></div>
     <div id='widthTest'></div>
-    <button type='button' onclick='getPassword(3)'>Get Words</button>
+    <div class='button' onclick='getPassword()'>Generate password.</div>
+    <img src="http://2.bp.blogspot.com/-jSLk8BvSfIE/UH47n_4gRJI/AAAAAAAAADA/muQBAlhwhmA/s320/Gandalf.jpg" style="display: block; margin-left: auto; margin-right: auto;">
 
 </html>

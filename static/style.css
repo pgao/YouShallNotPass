@@ -1,14 +1,22 @@
+body {
+	color: white;
+	background-color: black;
+}
+
 #title {
-	text-align: center;
 	font-size: 50px;
-	margin-bottom: 50px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 100px;
 }
 
 #generated {
 	width: 30%;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 20px;
+	margin-bottom: 50px;
+	font-size: 40px;
 }
 
 #widthTest {
@@ -16,4 +24,26 @@
     visibility: hidden;
     height: auto;
     width: auto;
+}
+
+.caret {
+	background: #00CC00;
+}
+
+.button {
+	text-align: center;
+	width: 20%;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 50px;
+
+	font-size: 25px;
+	color: #00CC00;
+
+	border-style: solid;
+	border-width: 3px;
+	border-color: #00CC00;
+
+	cursor: pointer;
 }
