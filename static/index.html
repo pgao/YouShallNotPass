@@ -1,25 +1,91 @@
+<link href="style.css" rel="stylesheet" type="text/css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 
 <script>
-    function getWord() {
-    	$.ajax({
-	        url: '/random',
-	        dataType: "json",
-	        timeout: 5000,
-	        success: function(data) {
-	        	console.log(data);
-	            $("#test").append(data.word + '<br>');
-	        },
-	        error: function(jqXHR, textStatus, errorThrown) {
-	            alert('error ' + textStatus + " " + errorThrown);
-	        }
-	    });
+    var pageTitle = 'YOU SHALL NOT PASSWORD';
+
+    $(document).ready(function() {
+        $('#title').teletype({
+            animDelay: 100,
+            text: pageTitle
+        });
+
+        window.setTimeout(getPassword, 2000, 3);
+    });
+
+    $.fn.teletype = function(opts){
+        var $this = this,
+            defaults = {
+                animDelay: 50
+            },
+            settings = $.extend(defaults, opts);
+
+        $.each(settings.text.split(''), function(i, letter){
+            setTimeout(function(){
+                $this.html($this.html() + letter);
+            }, settings.animDelay * i);
+        });
+    };
+
+    function getWords(words, num_left, callback) {
+        $.ajax({
+            url: '/random',
+            dataType: "json",
+            timeout: 5000,
+            success: function(data) {
+                console.log('word received:' + data.word);
+                if (num_left>0) {
+                    words.push(data.word);
+                    getWords(words, num_left-1, callback);
+                }
+                else {
+                    callback(words);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('error ' + textStatus + " " + errorThrown);
+            }
+        });
     }
+
+    function getPassword(num_words) {
+        getWords([], num_words, function(password) {
+            console.log('words:' + password);
+            var temp = ''
+            for(var i=0;i<password.length;i++) {
+                temp += password[i] + ' ';
+            }
+
+            var generated = document.getElementById("generated");
+            generated.innerHTML = '';
+
+            var test = document.getElementById("widthTest");
+
+            var style = window.getComputedStyle(generated, null).getPropertyValue('font-size');
+            var fontSize = parseFloat(style);
+
+            test.style.fontSize = fontSize;
+            test.innerHTML = temp;
+            var height = (test.clientHeight + 10) + "px";
+            var width = (test.clientWidth + 10) + "px";
+
+            generated.style.width = width;
+            generated.style.height = height;
+
+            $('#generated').teletype({
+                animDelay: 10,
+                text: temp
+            });
+        });
+    }
+
 </script>
 
 <html>
-	hello world
-	<div id='test'>
-	</div>
-	<button type='button' onclick=getWord()>Get Word</button>
+
+    <div id='title'></div>
+    <div id='generated'><br></div>
+    <div id='widthTest'></div>
+    <button type='button' onclick='getPassword(3)'>Get Words</button>
+
 </html>
