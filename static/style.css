@@ -1,14 +1,25 @@
+@font-face {
+	font-family: 'Ringbearer';
+	src: url('ringbearer.ttf');
+}
+
 body {
 	color: white;
 	background-color: black;
+	background-image: url('http://i.imgur.com/vK0bGL3.jpg');
+	background-position: center;
+	/*background-size:100% 100%;*/
+	background-repeat:no-repeat;
+	/*background-image: url('http://openstackreactions.enovance.com/wp-content/uploads/2013/08/Ugt5tL4.gif');*/
 }
 
 #title {
+	font-family: 'Ringbearer';
 	font-size: 50px;
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 100px;
+	margin-bottom: 60px;
 }
 
 #generated {
@@ -33,7 +44,7 @@ body {
 .button {
 	text-align: center;
 	width: 20%;
-	margin-top: 10px;
+	margin-top: 350px;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 50px;

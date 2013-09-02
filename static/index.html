@@ -17,9 +17,12 @@
         });
     });
 
-    function getDimensions(text, fontSize) {
+    function getDimensions(text, selector) {
         var test = $('#widthTest');
-        test.css('font-size', fontSize);
+        if (selector) {
+            test.css('font-size', selector.css('font-size'));
+            test.css('font-family', selector.css('font-family'));
+        }
         test.html(text);
         var height = (test.height() + 1) + "px";
         var width = (test.width() + 1) + "px";
@@ -35,7 +38,7 @@
             },
             settings = $.extend(defaults, opts);
 
-        var dimensions = getDimensions(settings.text + caret, $this.css('font-size'));
+        var dimensions = getDimensions(settings.text + caret, $this);
 
         $this.height(dimensions[0]);
         $this.width(dimensions[1]);
@@ -117,6 +120,5 @@
     <div id='generated'><br></div>
     <div id='widthTest'></div>
     <div class='button' onclick='getPassword()'>Generate password.</div>
-    <img src="http://2.bp.blogspot.com/-jSLk8BvSfIE/UH47n_4gRJI/AAAAAAAAADA/muQBAlhwhmA/s320/Gandalf.jpg" style="display: block; margin-left: auto; margin-right: auto;">
 
 </html>
