@@ -9,14 +9,14 @@
     $(document).ready(function() {
         setInterval('cursorAnimation()', 600);
 
-        $('#title').teletype({
+        window.setTimeout(function() {$('#title').teletype({
             animDelay: 100,
             text: pageTitle,
             callback: function() {
                 getPassword();
                 $('.button').fadeIn(2000);
             }
-        });
+        })}, 2000);
     });
 
     function getDimensions(text, selector) {
