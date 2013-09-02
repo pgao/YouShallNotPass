@@ -14,6 +14,7 @@
             text: pageTitle,
             callback: function() {
                 getPassword();
+                $('.button').fadeIn(2000);
             }
         });
     });
@@ -120,6 +121,6 @@
     <div id='title'></div>
     <div id='generated'><br></div>
     <div id='widthTest'></div>
-    <div class='button' onclick='getPassword()'>generate password</div>
+    <div class='button' onclick='getPassword()' style='display: none;'>generate password</div>
 
 </html>
