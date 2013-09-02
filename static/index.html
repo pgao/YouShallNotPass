@@ -1,4 +1,5 @@
 <link href="style.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Inconsolata|Roboto' rel='stylesheet' type='text/css'>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 
 <script>
@@ -24,8 +25,8 @@
             test.css('font-family', selector.css('font-family'));
         }
         test.html(text);
-        var height = (test.height() + 1) + "px";
-        var width = (test.width() + 1) + "px";
+        var height = (test.height() + 5) + "px";
+        var width = (test.width() + 5) + "px";
         return [height, width]
     }
 
@@ -119,6 +120,6 @@
     <div id='title'></div>
     <div id='generated'><br></div>
     <div id='widthTest'></div>
-    <div class='button' onclick='getPassword()'>Generate password.</div>
+    <div class='button' onclick='getPassword()'>generate password</div>
 
 </html>
