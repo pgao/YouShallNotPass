@@ -14,19 +14,19 @@
             callback: function() {
                 getPassword();
                 $('.button').fadeIn(2000);
+                $('#info').fadeIn(2000);
+                $('#inspired').fadeIn(2000);
             }
         })}, 2000);
     });
 
     function getDimensions(text, selector) {
         var test = $('#widthTest');
-        if (selector) {
-            test.css('font-size', selector.css('font-size'));
-            test.css('font-family', selector.css('font-family'));
-        }
+        test.css('font-size', selector.css('font-size'));
+        test.css('font-family', selector.css('font-family'));
         test.html(text);
-        var height = (test.height() + 10) + "px";
-        var width = (test.width() + 10) + "px";
+        var height = (test.height() * 1.02) + "px";
+        var width = (test.width() * 1.02) + "px";
         return [height, width]
     }
 
@@ -121,5 +121,7 @@
     <div id='generated'><br></div>
     <div id='widthTest'></div>
     <div class='button' onclick='getPassword()' style='display: none;'>generate password</div>
+    <div id='info' style='display: none;'><a href="http://www.baekdal.com/insights/password-security-usability">Why does this work?</a></div>
+    <div id='inspired' style='display: none;'>Inspired by <a href="http://xkcd.com/936/">xkcd</a></div>
 
 </html>
