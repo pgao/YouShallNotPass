@@ -3,7 +3,6 @@ var handlers = require('./handlers');
 
 var app = express();
 
-/*app.use(express.compress());*/
 app.use(express.static('./static'));
 app.get('/random', handlers.random);
 

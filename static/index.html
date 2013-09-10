@@ -5,7 +5,7 @@
     var pageTitle = 'YOU SHALL NOT PASSWORD';
     var caret = '<span class="caret">&nbsp;</span>';
 
-    $(document).ready(function() {
+    window.onload = function() {
         setInterval('cursorAnimation()', 600);
 
         window.setTimeout(function() {$('#title').teletype({
@@ -18,7 +18,7 @@
                 $('#inspired').fadeIn(2000);
             }
         })}, 2000);
-    });
+    };
 
     function getDimensions(text, selector) {
         var test = $('#widthTest');
@@ -118,6 +118,7 @@
 <html>
 
     <div id='title'></div>
+    <img src='http://i.imgur.com/vK0bGL3.jpg'></img>
     <div id='generated'><br></div>
     <div id='widthTest'></div>
     <div class='button' onclick='getPassword()' style='display: none;'>generate password</div>

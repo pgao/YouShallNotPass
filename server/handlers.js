@@ -2,7 +2,8 @@ fs = require('fs');
 
 var words = [];
 
-fs.readFile('words.txt', 'utf-8', function(error, data) {
+fs.readFile('frequent_words.txt', 'utf-8', function(error, data) {
+	data = data.toLowerCase();
 	splitted = data.split('\n');
 	global.words = splitted.slice(0, splitted.length - 1);
 	// console.log(global.words);
